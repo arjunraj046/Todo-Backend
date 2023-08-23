@@ -9,7 +9,6 @@ const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const todoRoutes_1 = __importDefault(require("./routes/todoRoutes"));
 const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config({ path: "config.env" });
 const typeorm_1 = require("typeorm");
 const typeorm_config_1 = __importDefault(require("./typeorm.config"));
 (0, typeorm_1.createConnection)(typeorm_config_1.default)
@@ -19,6 +18,7 @@ const typeorm_config_1 = __importDefault(require("./typeorm.config"));
     .catch((error) => {
     console.error("Error connecting to the database:", error);
 });
+dotenv_1.default.config({ path: "config.env" });
 // const { Client } = require("pg");
 // const dbConfig = {
 //   user: "postgres",

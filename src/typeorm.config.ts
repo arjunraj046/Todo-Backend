@@ -13,7 +13,8 @@ const connectionOptions: ConnectionOptions = {
   port: 5432,
   username: 'postgres',
   password: 'sanika',
-  database: 'postgres', // my-todo.cweibzdpd9si.ap-south-1.rds.amazonaws.com
+  database: 'postgres', 
+  // my-todo.cweibzdpd9si.ap-south-1.rds.amazonaws.com
   
   // host: 'my-todo.cweibzdpd9si.ap-south-1.rds.amazonaws.com',
   // port: 5432,

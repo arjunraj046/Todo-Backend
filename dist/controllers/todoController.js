@@ -14,8 +14,14 @@ const typeorm_1 = require("typeorm");
 const todo_1 = require("../entities/todo");
 const getTodos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        let user = req.user;
+        console.log("controller", user);
         const todoRepository = (0, typeorm_1.getRepository)(todo_1.Todo);
-        const todos = yield todoRepository.find();
+        const todos = yield todoRepository.find({
+            where: {
+                userid: user === null || user === void 0 ? void 0 : user.username,
+            },
+        });
         res.json(todos);
     }
     catch (error) {
@@ -51,10 +57,13 @@ const getTodoById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getTodoById = getTodoById;
 const createTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        let user = req.user;
+        console.log("controller", user);
+        let userid = user === null || user === void 0 ? void 0 : user.username;
         console.log("body ", req.body);
         const todoRepository = (0, typeorm_1.getRepository)(todo_1.Todo);
         const { title, description } = req.body;
-        const newTodo = todoRepository.create({ title, description });
+        const newTodo = todoRepository.create({ title, description, userid });
         yield todoRepository.save(newTodo);
         console.log(newTodo);
         res.json(newTodo);

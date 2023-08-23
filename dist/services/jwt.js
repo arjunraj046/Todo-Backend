@@ -23,7 +23,7 @@ const generateToken = (payload) => {
 exports.generateToken = generateToken;
 const verifyToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
     const decodedToken = yield jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
-    console.log("entered veriy token", decodedToken);
+    console.log("entered verify token", decodedToken);
     return decodedToken;
 });
 exports.verifyToken = verifyToken;

@@ -1,14 +1,24 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { Todo } from "../entities/todo";
+import { JwtPayload } from "jsonwebtoken";
 
 export const getTodos = async (req: Request, res: Response) => {
   try {
+    let user: JwtPayload | null = req.user as JwtPayload;
+    let userid = user?.id
+    console.log("controller-------- userdata",userid, user);
     const todoRepository = getRepository(Todo);
-    const todos = await todoRepository.find();
-    let user = req.user
-    console.log("controller",user);
-    
+    const todos = await todoRepository.find({
+      where: {
+        userid: userid,
+      },
+    });
+    console.log("==============================================");
+
+    console.log(todos);
+    console.log("==============================================");
+
     res.json(todos);
   } catch (error) {
     console.error(error);
@@ -21,9 +31,9 @@ export const getTodos = async (req: Request, res: Response) => {
 export const getTodoById = async (req: Request, res: Response) => {
   try {
     const todoRepository = getRepository(Todo);
-    const todoId: number = +req.params.id; // Convert id to a number
-    console.log("request received",todoId);
-    
+    const todoId: number = +req.params.id;
+    console.log("request received", todoId);
+
     const todo = await todoRepository.findOne({
       where: {
         id: todoId,
@@ -45,12 +55,17 @@ export const getTodoById = async (req: Request, res: Response) => {
 
 export const createTodo = async (req: Request, res: Response) => {
   try {
+    let user: JwtPayload | null = req.user as JwtPayload;
+    console.log("controller", user?.id);
+    let userid = user?.id;
+
     console.log("body ", req.body);
 
     const todoRepository = getRepository(Todo);
     const { title, description } = req.body;
-    const newTodo = todoRepository.create({ title, description });
+    const newTodo = todoRepository.create({ title, description, userid });
     await todoRepository.save(newTodo);
+
     console.log(newTodo);
 
     res.json(newTodo);

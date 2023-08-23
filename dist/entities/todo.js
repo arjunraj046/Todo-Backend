@@ -19,6 +19,7 @@ let Todo = exports.Todo = class Todo {
         this.status = false;
         this.created_at = new Date();
         this.updated_at = new Date();
+        this.userid = 0;
     }
 };
 __decorate([
@@ -45,6 +46,10 @@ __decorate([
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
 ], Todo.prototype, "updated_at", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)(),
+    __metadata("design:type", Number)
+], Todo.prototype, "userid", void 0);
 exports.Todo = Todo = __decorate([
     (0, typeorm_1.Entity)()
 ], Todo);

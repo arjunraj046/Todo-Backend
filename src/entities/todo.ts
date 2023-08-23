@@ -20,12 +20,12 @@ export class Todo {
   @Column({ type: "boolean" })
   status: boolean = false;
 
+  @Column()
+  userid: number = 0;
+
   @CreateDateColumn()
   created_at: Date = new Date();
 
   @UpdateDateColumn()
   updated_at: Date = new Date();
-
-  @UpdateDateColumn()
-  userid: number = 0;
 }
