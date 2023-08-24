@@ -9,22 +9,21 @@ const connectionOptions: ConnectionOptions = {
   
   
   
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: 'sanika',
-  database: 'postgres', 
-  // my-todo.cweibzdpd9si.ap-south-1.rds.amazonaws.com
-  
-  // host: 'my-todo.cweibzdpd9si.ap-south-1.rds.amazonaws.com',
+  // host: 'localhost',
   // port: 5432,
-  // username: 'arjun', 
-  // password: 'sanika123', 
+  // username: 'postgres',
+  // password: 'sanika',
   // database: 'postgres', 
+  
+  host: "my-todo.cweibzdpd9si.ap-south-1.rds.amazonaws.com",
+  port: 5432,
+  username: "arjun", 
+  password: "sanika123", 
+  database: 'postgres', 
 
  
-  entities: [User,Todo], // Specify your entity classes
-  synchronize: true, // Automatically create database schema based on entities
+  entities: [User,Todo], 
+  synchronize: true, 
 };
 
 export default connectionOptions;

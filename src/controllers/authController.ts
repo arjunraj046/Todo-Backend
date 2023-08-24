@@ -46,7 +46,6 @@ export const loginUser = async (req: Request, res: Response) => {
         email: email,
       },
     });
-    console.log(user);
 
     if (!user) {
       return res.status(404).json({ message: "user not found." });

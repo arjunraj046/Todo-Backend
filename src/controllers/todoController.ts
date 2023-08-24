@@ -7,18 +7,12 @@ export const getTodos = async (req: Request, res: Response) => {
   try {
     let user: JwtPayload | null = req.user as JwtPayload;
     let userid = user?.id
-    console.log("controller-------- userdata",userid, user);
     const todoRepository = getRepository(Todo);
     const todos = await todoRepository.find({
       where: {
         userid: userid,
       },
     });
-    console.log("==============================================");
-
-    console.log(todos);
-    console.log("==============================================");
-
     res.json(todos);
   } catch (error) {
     console.error(error);
@@ -32,18 +26,14 @@ export const getTodoById = async (req: Request, res: Response) => {
   try {
     const todoRepository = getRepository(Todo);
     const todoId: number = +req.params.id;
-    console.log("request received", todoId);
-
     const todo = await todoRepository.findOne({
       where: {
         id: todoId,
       },
     });
-
     if (!todo) {
       return res.status(404).json({ message: "Todo not found." });
     }
-
     res.json(todo);
   } catch (error) {
     console.error(error);
@@ -56,18 +46,11 @@ export const getTodoById = async (req: Request, res: Response) => {
 export const createTodo = async (req: Request, res: Response) => {
   try {
     let user: JwtPayload | null = req.user as JwtPayload;
-    console.log("controller", user?.id);
     let userid = user?.id;
-
-    console.log("body ", req.body);
-
     const todoRepository = getRepository(Todo);
     const { title, description } = req.body;
     const newTodo = todoRepository.create({ title, description, userid });
     await todoRepository.save(newTodo);
-
-    console.log(newTodo);
-
     res.json(newTodo);
   } catch (error) {
     console.error(error);
@@ -87,15 +70,12 @@ export const updateTodo = async (req: Request, res: Response) => {
         id: todoId,
       },
     });
-
     if (!todo) {
       return res.status(404).json({ message: "Todo not found." });
     }
-
     todo.title = title;
     todo.description = description;
     todo.status = status;
-
     await todoRepository.save(todo);
     res.json(todo);
   } catch (error) {
